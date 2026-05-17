@@ -6,6 +6,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import { errorMiddleware } from "./middlewares/error.middleware";
 import { notFoundMiddleware } from "./middlewares/notFound.middleware";
+import authRoutes from "./routes/auth.routes";
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.get("/api/health", (_req: Request, res: Response) => { res.status(200).json(
     message: "API is running",
   });
 });
+app.use("/api/auth", authRoutes);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
