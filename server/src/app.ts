@@ -7,6 +7,8 @@ import cookieParser from "cookie-parser";
 import { errorMiddleware } from "./middlewares/error.middleware";
 import { notFoundMiddleware } from "./middlewares/notFound.middleware";
 import authRoutes from "./routes/auth.routes";
+import leadRoutes from "./routes/lead.routes";
+
 
 dotenv.config();
 
@@ -30,6 +32,7 @@ app.get("/api/health", (_req: Request, res: Response) => { res.status(200).json(
   });
 });
 app.use("/api/auth", authRoutes);
+app.use("/api/leads", leadRoutes);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
