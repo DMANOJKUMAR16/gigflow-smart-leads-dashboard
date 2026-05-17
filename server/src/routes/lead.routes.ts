@@ -5,6 +5,7 @@ import {
   deleteLead,
   getLeadById,
   getLeads,
+  getLeadStats,
   updateLead,
 } from "../controllers/lead.controller";
 
@@ -16,6 +17,8 @@ const router = Router();
 router.use(protect);
 
 router.get("/", getLeads);
+
+router.get("/stats/overview", getLeadStats);
 
 router.get("/:id", getLeadById);
 
