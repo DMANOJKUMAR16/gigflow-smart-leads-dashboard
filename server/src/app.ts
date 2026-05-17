@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import { errorMiddleware } from "./middlewares/error.middleware";
+import { notFoundMiddleware } from "./middlewares/notFound.middleware";
 
 dotenv.config();
 
@@ -26,5 +28,8 @@ app.get("/api/health", (_req: Request, res: Response) => { res.status(200).json(
     message: "API is running",
   });
 });
+
+app.use(notFoundMiddleware);
+app.use(errorMiddleware);
 
 export default app;

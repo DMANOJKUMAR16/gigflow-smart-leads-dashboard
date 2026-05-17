@@ -1,10 +1,19 @@
-import dotenv from "dotenv";
 import app from "./app";
+import { connectDB } from "./config/db";
+import { env } from "./config/env";
 
-dotenv.config();
+const startServer = async () => {
+  try {
+    await connectDB();
 
-const PORT = process.env.PORT || 5000;
+    app.listen(env.PORT, () => {
+      console.log(`Server running on port ${env.PORT}`);
+    });
+  } catch (error) {
+    console.error("Server startup failed:", error);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+    process.exit(1);
+  }
+};
+
+startServer();
