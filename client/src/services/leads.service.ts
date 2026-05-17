@@ -10,3 +10,19 @@ export const getLeads = async (
 
   return response.data.data.leads;
 };
+
+export const createLead = async (
+  leadData: {
+    name: string;
+    email: string;
+    company: string;
+    status: string;
+  }
+) => {
+  const response = await api.post(
+    "/leads",
+    leadData
+  );
+
+  return response.data.data;
+};

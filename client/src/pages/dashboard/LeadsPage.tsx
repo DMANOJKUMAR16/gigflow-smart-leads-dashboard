@@ -1,12 +1,25 @@
 import { useState } from "react";
 
-import { useQuery } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 import LeadsTable from "../../components/dashboard/LeadsTable";
 
-import { getLeads } from "../../services/leads.service";
+import CreateLeadModal from "../../components/dashboard/CreateLeadModal";
+
+import {
+  createLead,
+  getLeads,
+} from "../../services/leads.service";
 
 const LeadsPage = () => {
+  const queryClient = useQueryClient();
+
+  const [open, setOpen] = useState(false);
+
   const [searchInput, setSearchInput] =
     useState("");
 
@@ -20,6 +33,16 @@ const LeadsPage = () => {
     queryFn: () => getLeads(search, status),
   });
 
+  const mutation = useMutation({
+    mutationFn: createLead,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["leads"],
+      });
+    },
+  });
+
   const handleSearch = () => {
     setSearch(searchInput);
   };
@@ -30,14 +53,23 @@ const LeadsPage = () => {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold">
-          Leads
-        </h1>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">
+            Leads
+          </h1>
 
-        <p className="text-slate-500 mt-1">
-          Manage your sales pipeline
-        </p>
+          <p className="text-slate-500 mt-1">
+            Manage your sales pipeline
+          </p>
+        </div>
+
+        <button
+          onClick={() => setOpen(true)}
+          className="bg-black text-white px-5 py-3 rounded-xl"
+        >
+          Add Lead
+        </button>
       </div>
 
       <div className="flex gap-4 items-center">
@@ -88,6 +120,14 @@ const LeadsPage = () => {
       </div>
 
       <LeadsTable leads={data || []} />
+
+      <CreateLeadModal
+        open={open}
+        onClose={() => setOpen(false)}
+        onSubmit={(data) =>
+          mutation.mutate(data)
+        }
+      />
     </div>
   );
 };
