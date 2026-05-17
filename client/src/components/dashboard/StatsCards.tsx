@@ -6,48 +6,58 @@ import {
 } from "lucide-react";
 
 import { Card, CardContent } from "../ui/card";
-const stats = [
-  {
-    title: "Total Leads",
-    value: "128",
-    icon: Users,
-  },
-  {
-    title: "Contacted",
-    value: "64",
-    icon: UserCheck,
-  },
-  {
-    title: "Qualified",
-    value: "32",
-    icon: BadgeCheck,
-  },
-  {
-    title: "Conversion Rate",
-    value: "24%",
-    icon: TrendingUp,
-  },
-];
 
-const StatsCards = () => {
+interface Props {
+  stats: {
+    totalLeads: number;
+    contactedLeads: number;
+    qualifiedLeads: number;
+    wonLeads: number;
+  };
+}
+
+const StatsCards = ({ stats }: Props) => {
+  const cards = [
+    {
+      title: "Total Leads",
+      value: stats.totalLeads,
+      icon: Users,
+    },
+    {
+      title: "Contacted",
+      value: stats.contactedLeads,
+      icon: UserCheck,
+    },
+    {
+      title: "Qualified",
+      value: stats.qualifiedLeads,
+      icon: BadgeCheck,
+    },
+    {
+      title: "Won Leads",
+      value: stats.wonLeads,
+      icon: TrendingUp,
+    },
+  ];
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-      {stats.map((stat) => {
-        const Icon = stat.icon;
+      {cards.map((card) => {
+        const Icon = card.icon;
 
         return (
           <Card
-            key={stat.title}
+            key={card.title}
             className="shadow-sm border-0"
           >
             <CardContent className="p-6 flex items-center justify-between">
               <div>
                 <p className="text-sm text-slate-500">
-                  {stat.title}
+                  {card.title}
                 </p>
 
                 <h2 className="text-3xl font-bold mt-2">
-                  {stat.value}
+                  {card.value}
                 </h2>
               </div>
 
