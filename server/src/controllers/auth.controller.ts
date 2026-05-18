@@ -36,7 +36,7 @@ export const registerUser = asyncHandler(
       .cookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .status(StatusCodes.CREATED)
@@ -84,7 +84,7 @@ export const loginUser = asyncHandler(
         secure:
          process.env.NODE_ENV ===
          "production",
-        sameSite: "lax",
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .status(StatusCodes.OK)
