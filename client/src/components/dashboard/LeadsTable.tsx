@@ -8,9 +8,17 @@ interface Lead {
 
 interface Props {
   leads: Lead[];
+
+  onStatusChange: (
+    leadId: string,
+    status: string
+  ) => void;
 }
 
-const LeadsTable = ({ leads }: Props) => {
+const LeadsTable = ({
+  leads,
+  onStatusChange,
+}: Props) => {
   return (
     <div className="bg-white rounded-xl shadow overflow-hidden">
       <div className="p-6 border-b">
@@ -35,16 +43,49 @@ const LeadsTable = ({ leads }: Props) => {
               key={lead._id}
               className="border-t"
             >
-              <td className="p-4">{lead.name}</td>
-
-              <td className="p-4">{lead.email}</td>
-
-              <td className="p-4">{lead.company}</td>
+              <td className="p-4">
+                {lead.name}
+              </td>
 
               <td className="p-4">
-                <span className="px-3 py-1 rounded-full text-sm bg-slate-100">
-                  {lead.status}
-                </span>
+                {lead.email}
+              </td>
+
+              <td className="p-4">
+                {lead.company}
+              </td>
+
+              <td className="p-4">
+                <select
+                  value={lead.status}
+                  onChange={(e) =>
+                    onStatusChange(
+                      lead._id,
+                      e.target.value
+                    )
+                  }
+                  className="border rounded-lg px-3 py-2"
+                >
+                  <option value="new">
+                    New
+                  </option>
+
+                  <option value="contacted">
+                    Contacted
+                  </option>
+
+                  <option value="qualified">
+                    Qualified
+                  </option>
+
+                  <option value="won">
+                    Won
+                  </option>
+
+                  <option value="lost">
+                    Lost
+                  </option>
+                </select>
               </td>
             </tr>
           ))}

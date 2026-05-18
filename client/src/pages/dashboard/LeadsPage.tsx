@@ -13,6 +13,7 @@ import CreateLeadModal from "../../components/dashboard/CreateLeadModal";
 import {
   createLead,
   getLeads,
+  updateLeadStatus,
 } from "../../services/leads.service";
 
 const LeadsPage = () => {
@@ -42,6 +43,30 @@ const LeadsPage = () => {
       });
     },
   });
+
+  const statusMutation = useMutation({
+  mutationFn: ({
+    leadId,
+    status,
+  }: {
+    leadId: string;
+    status: string;
+  }) =>
+    updateLeadStatus(
+      leadId,
+      status
+    ),
+
+  onSuccess: () => {
+    queryClient.invalidateQueries({
+      queryKey: ["leads"],
+    });
+
+    queryClient.invalidateQueries({
+      queryKey: ["dashboard-stats"],
+    });
+  },
+});
 
   const handleSearch = () => {
     setSearch(searchInput);
@@ -119,7 +144,18 @@ const LeadsPage = () => {
         </select>
       </div>
 
-      <LeadsTable leads={data || []} />
+      <LeadsTable
+        leads={data || []}
+        onStatusChange={(
+          leadId,
+          status
+        ) =>
+          statusMutation.mutate({
+            leadId,
+            status,
+          })
+        }
+      />
 
       <CreateLeadModal
         open={open}

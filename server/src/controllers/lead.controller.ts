@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response,NextFunction, } from "express";
 import { StatusCodes } from "http-status-codes";
 
 import { Lead, LeadStatus } from "../models/lead.model";
@@ -181,3 +181,37 @@ export const getLeadStats = asyncHandler(
     );
   }
 );
+
+export const updateLeadStatus = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { status } = req.body;
+
+    const lead = await Lead.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true }
+    );
+
+    if (!lead) {
+      return next(
+        new ApiError(
+          StatusCodes.NOT_FOUND,
+          "Lead not found"
+        )
+      );
+    }
+
+    res.status(200).json({
+      success: true,
+      message:
+        "Lead status updated",
+      data: lead,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

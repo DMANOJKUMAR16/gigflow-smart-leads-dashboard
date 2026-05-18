@@ -26,3 +26,15 @@ export const createLead = async (
 
   return response.data.data;
 };
+
+export const updateLeadStatus = async (
+  leadId: string,
+  status: string
+) => {
+  const response = await api.patch(
+    `/leads/${leadId}`,
+    { status }
+  );
+
+  return response.data.data;
+};
