@@ -8,6 +8,7 @@ import {
   getLeadStats,
   updateLead,
   updateLeadStatus,
+  
 } from "../controllers/lead.controller";
 
 import { protect } from "../middlewares/auth.middleware";
@@ -45,6 +46,11 @@ router.patch(
   "/:id",
   protect,
   updateLeadStatus
+);
+router.delete(
+  "/:id",
+  protect,
+  deleteLead
 );
 
 export default router;

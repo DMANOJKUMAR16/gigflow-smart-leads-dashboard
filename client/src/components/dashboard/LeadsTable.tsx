@@ -13,11 +13,16 @@ interface Props {
     leadId: string,
     status: string
   ) => void;
+
+  onDelete: (
+    leadId: string
+  ) => void;
 }
 
 const LeadsTable = ({
   leads,
   onStatusChange,
+  onDelete,
 }: Props) => {
   return (
     <div className="bg-white rounded-xl shadow overflow-hidden">
@@ -30,10 +35,25 @@ const LeadsTable = ({
       <table className="w-full">
         <thead className="bg-slate-50">
           <tr>
-            <th className="text-left p-4">Name</th>
-            <th className="text-left p-4">Email</th>
-            <th className="text-left p-4">Company</th>
-            <th className="text-left p-4">Status</th>
+            <th className="text-left p-4">
+              Name
+            </th>
+
+            <th className="text-left p-4">
+              Email
+            </th>
+
+            <th className="text-left p-4">
+              Company
+            </th>
+
+            <th className="text-left p-4">
+              Status
+            </th>
+
+            <th className="text-left p-4">
+              Actions
+            </th>
           </tr>
         </thead>
 
@@ -86,6 +106,17 @@ const LeadsTable = ({
                     Lost
                   </option>
                 </select>
+              </td>
+
+              <td className="p-4">
+                <button
+                  onClick={() =>
+                    onDelete(lead._id)
+                  }
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

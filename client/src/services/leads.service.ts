@@ -38,3 +38,13 @@ export const updateLeadStatus = async (
 
   return response.data.data;
 };
+
+export const deleteLead = async (
+  leadId: string
+) => {
+  const response = await api.delete(
+    `/leads/${leadId}`
+  );
+
+  return response.data;
+};

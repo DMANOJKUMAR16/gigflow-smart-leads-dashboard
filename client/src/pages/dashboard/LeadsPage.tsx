@@ -12,6 +12,7 @@ import CreateLeadModal from "../../components/dashboard/CreateLeadModal";
 
 import {
   createLead,
+  deleteLead,
   getLeads,
   updateLeadStatus,
 } from "../../services/leads.service";
@@ -56,6 +57,20 @@ const LeadsPage = () => {
       leadId,
       status
     ),
+
+  onSuccess: () => {
+    queryClient.invalidateQueries({
+      queryKey: ["leads"],
+    });
+
+    queryClient.invalidateQueries({
+      queryKey: ["dashboard-stats"],
+    });
+  },
+  });
+
+  const deleteMutation = useMutation({
+  mutationFn: deleteLead,
 
   onSuccess: () => {
     queryClient.invalidateQueries({
@@ -154,6 +169,9 @@ const LeadsPage = () => {
             leadId,
             status,
           })
+        }
+        onDelete={(leadId) =>
+          deleteMutation.mutate(leadId)
         }
       />
 
