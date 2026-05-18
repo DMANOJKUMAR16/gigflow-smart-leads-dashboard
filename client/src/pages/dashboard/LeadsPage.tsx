@@ -16,151 +16,178 @@ import {
   getLeads,
   updateLeadStatus,
 } from "../../services/leads.service";
+
 import { toast } from "sonner";
 
 const LeadsPage = () => {
   const queryClient = useQueryClient();
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] =
+    useState(false);
 
   const [searchInput, setSearchInput] =
     useState("");
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] =
+    useState("");
 
-  const [status, setStatus] = useState("");
+  const [status, setStatus] =
+    useState("");
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["leads", search, status],
+  const { data, isLoading } =
+    useQuery({
+      queryKey: [
+        "leads",
+        search,
+        status,
+      ],
 
-    queryFn: () => getLeads(search, status),
-  });
+      queryFn: () =>
+        getLeads(search, status),
+    });
 
   const mutation = useMutation({
-  mutationFn: createLead,
+    mutationFn: createLead,
 
-  onSuccess: () => {
-    queryClient.invalidateQueries({
-      queryKey: ["leads"],
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["leads"],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [
+          "dashboard-stats",
+        ],
+      });
+
+      toast.success(
+        "Lead created successfully"
+      );
+    },
+
+    onError: () => {
+      toast.error(
+        "Failed to create lead"
+      );
+    },
+  });
+
+  const statusMutation =
+    useMutation({
+      mutationFn: ({
+        leadId,
+        status,
+      }: {
+        leadId: string;
+        status: string;
+      }) =>
+        updateLeadStatus(
+          leadId,
+          status
+        ),
+
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ["leads"],
+        });
+
+        queryClient.invalidateQueries({
+          queryKey: [
+            "dashboard-stats",
+          ],
+        });
+
+        toast.success(
+          "Lead status updated"
+        );
+      },
+
+      onError: () => {
+        toast.error(
+          "Failed to update lead"
+        );
+      },
     });
 
-    queryClient.invalidateQueries({
-      queryKey: ["dashboard-stats"],
+  const deleteMutation =
+    useMutation({
+      mutationFn: deleteLead,
+
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ["leads"],
+        });
+
+        queryClient.invalidateQueries({
+          queryKey: [
+            "dashboard-stats",
+          ],
+        });
+
+        toast.success(
+          "Lead deleted successfully"
+        );
+      },
+
+      onError: () => {
+        toast.error(
+          "Failed to delete lead"
+        );
+      },
     });
-
-    toast.success(
-      "Lead created successfully"
-    );
-  },
-
-  onError: () => {
-    toast.error(
-      "Failed to create lead"
-    );
-  },
-});
-
-  const statusMutation = useMutation({
-  mutationFn: ({
-    leadId,
-    status,
-  }: {
-    leadId: string;
-    status: string;
-  }) =>
-    updateLeadStatus(
-      leadId,
-      status
-    ),
-
-  onSuccess: () => {
-    queryClient.invalidateQueries({
-      queryKey: ["leads"],
-    });
-
-    queryClient.invalidateQueries({
-      queryKey: ["dashboard-stats"],
-    });
-
-    toast.success(
-      "Lead status updated"
-    );
-  },
-
-  onError: () => {
-    toast.error(
-      "Failed to update lead"
-    );
-  },
-});
-
-  const deleteMutation = useMutation({
-  mutationFn: deleteLead,
-
-  onSuccess: () => {
-    queryClient.invalidateQueries({
-      queryKey: ["leads"],
-    });
-
-    queryClient.invalidateQueries({
-      queryKey: ["dashboard-stats"],
-    });
-
-    toast.success(
-      "Lead deleted successfully"
-    );
-  },
-
-  onError: () => {
-    toast.error(
-      "Failed to delete lead"
-    );
-  },
-});
 
   const handleSearch = () => {
     setSearch(searchInput);
   };
 
   if (isLoading) {
-    return <div>Loading leads...</div>;
+    return (
+      <div className="text-black dark:text-white">
+        Loading leads...
+      </div>
+    );
   }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">
+          <h1 className="text-3xl font-bold text-black dark:text-white">
             Leads
           </h1>
 
-          <p className="text-slate-500 mt-1">
-            Manage your sales pipeline
+          <p className="text-slate-500 dark:text-slate-300 mt-1">
+            Manage your sales
+            pipeline
           </p>
         </div>
 
         <button
-          onClick={() => setOpen(true)}
-          className="bg-black text-white px-5 py-3 rounded-xl"
+          onClick={() =>
+            setOpen(true)
+          }
+          className="bg-black dark:bg-white dark:text-black text-white px-5 py-3 rounded-xl"
         >
           Add Lead
         </button>
       </div>
 
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-4 items-center flex-wrap">
         <input
           type="text"
           placeholder="Search leads..."
           value={searchInput}
           onChange={(e) =>
-            setSearchInput(e.target.value)
+            setSearchInput(
+              e.target.value
+            )
           }
-          className="border rounded-lg px-4 py-2 w-72"
+          className="border dark:border-slate-600 bg-white dark:bg-slate-800 text-black dark:text-white rounded-lg px-4 py-2 w-72"
         />
 
         <button
           onClick={handleSearch}
-          className="bg-black text-white px-5 py-2 rounded-lg"
+          className="bg-black dark:bg-white dark:text-black text-white px-5 py-2 rounded-lg"
         >
           Search
         </button>
@@ -168,9 +195,11 @@ const LeadsPage = () => {
         <select
           value={status}
           onChange={(e) =>
-            setStatus(e.target.value)
+            setStatus(
+              e.target.value
+            )
           }
-          className="border rounded-lg px-4 py-2"
+          className="border dark:border-slate-600 bg-white dark:bg-slate-800 text-black dark:text-white rounded-lg px-4 py-2"
         >
           <option value="">
             All Status
@@ -206,13 +235,17 @@ const LeadsPage = () => {
           })
         }
         onDelete={(leadId) =>
-          deleteMutation.mutate(leadId)
+          deleteMutation.mutate(
+            leadId
+          )
         }
       />
 
       <CreateLeadModal
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={() =>
+          setOpen(false)
+        }
         onSubmit={(data) =>
           mutation.mutate(data)
         }

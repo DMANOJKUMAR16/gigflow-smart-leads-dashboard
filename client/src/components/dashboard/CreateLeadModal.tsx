@@ -28,17 +28,46 @@ const CreateLeadModal = ({
 
   if (!open) return null;
 
-  return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-2xl p-6 w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6">
-          Create Lead
-        </h2>
+  const handleSubmit = (
+    e: React.FormEvent
+  ) => {
+    e.preventDefault();
 
-        <div className="space-y-4">
+    onSubmit(formData);
+
+    setFormData({
+      name: "",
+      email: "",
+      company: "",
+      status: "new",
+    });
+
+    onClose();
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 w-full max-w-md shadow-xl">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-black dark:text-white">
+            Add Lead
+          </h2>
+
+          <button
+            onClick={onClose}
+            className="text-slate-500 hover:text-black dark:hover:text-white"
+          >
+            ✕
+          </button>
+        </div>
+
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4"
+        >
           <input
             type="text"
-            placeholder="Name"
+            placeholder="Lead Name"
             value={formData.name}
             onChange={(e) =>
               setFormData({
@@ -46,7 +75,8 @@ const CreateLeadModal = ({
                 name: e.target.value,
               })
             }
-            className="w-full border rounded-lg px-4 py-3"
+            className="w-full border dark:border-slate-600 bg-white dark:bg-slate-700 text-black dark:text-white rounded-xl px-4 py-3"
+            required
           />
 
           <input
@@ -59,7 +89,8 @@ const CreateLeadModal = ({
                 email: e.target.value,
               })
             }
-            className="w-full border rounded-lg px-4 py-3"
+            className="w-full border dark:border-slate-600 bg-white dark:bg-slate-700 text-black dark:text-white rounded-xl px-4 py-3"
+            required
           />
 
           <input
@@ -72,7 +103,8 @@ const CreateLeadModal = ({
                 company: e.target.value,
               })
             }
-            className="w-full border rounded-lg px-4 py-3"
+            className="w-full border dark:border-slate-600 bg-white dark:bg-slate-700 text-black dark:text-white rounded-xl px-4 py-3"
+            required
           />
 
           <select
@@ -83,7 +115,7 @@ const CreateLeadModal = ({
                 status: e.target.value,
               })
             }
-            className="w-full border rounded-lg px-4 py-3"
+            className="w-full border dark:border-slate-600 bg-white dark:bg-slate-700 text-black dark:text-white rounded-xl px-4 py-3"
           >
             <option value="new">
               New
@@ -100,28 +132,19 @@ const CreateLeadModal = ({
             <option value="won">
               Won
             </option>
+
+            <option value="lost">
+              Lost
+            </option>
           </select>
-        </div>
-
-        <div className="flex justify-end gap-3 mt-6">
-          <button
-            onClick={onClose}
-            className="border px-4 py-2 rounded-lg"
-          >
-            Cancel
-          </button>
 
           <button
-            onClick={() => {
-              onSubmit(formData);
-
-              onClose();
-            }}
-            className="bg-black text-white px-4 py-2 rounded-lg"
+            type="submit"
+            className="w-full bg-black dark:bg-white dark:text-black text-white py-3 rounded-xl font-semibold hover:opacity-90 transition"
           >
-            Create
+            Create Lead
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );

@@ -5,7 +5,10 @@ import {
   TrendingUp,
 } from "lucide-react";
 
-import { Card, CardContent } from "../ui/card";
+import {
+  Card,
+  CardContent,
+} from "../ui/card";
 
 interface Props {
   stats: {
@@ -16,7 +19,9 @@ interface Props {
   };
 }
 
-const StatsCards = ({ stats }: Props) => {
+const StatsCards = ({
+  stats,
+}: Props) => {
   const cards = [
     {
       title: "Total Leads",

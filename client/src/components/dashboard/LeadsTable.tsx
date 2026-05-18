@@ -25,33 +25,33 @@ const LeadsTable = ({
   onDelete,
 }: Props) => {
   return (
-    <div className="bg-white rounded-xl shadow overflow-hidden">
-      <div className="p-6 border-b">
-        <h2 className="text-xl font-semibold">
+    <div className="bg-white dark:bg-slate-800 rounded-xl shadow overflow-hidden">
+      <div className="p-6 border-b dark:border-slate-700">
+        <h2 className="text-xl font-semibold text-black dark:text-white">
           Recent Leads
         </h2>
       </div>
 
       <table className="w-full">
-        <thead className="bg-slate-50">
+        <thead className="bg-slate-50 dark:bg-slate-700">
           <tr>
-            <th className="text-left p-4">
+            <th className="text-left p-4 text-black dark:text-white">
               Name
             </th>
 
-            <th className="text-left p-4">
+            <th className="text-left p-4 text-black dark:text-white">
               Email
             </th>
 
-            <th className="text-left p-4">
+            <th className="text-left p-4 text-black dark:text-white">
               Company
             </th>
 
-            <th className="text-left p-4">
+            <th className="text-left p-4 text-black dark:text-white">
               Status
             </th>
 
-            <th className="text-left p-4">
+            <th className="text-left p-4 text-black dark:text-white">
               Actions
             </th>
           </tr>
@@ -61,21 +61,21 @@ const LeadsTable = ({
           {leads.map((lead) => (
             <tr
               key={lead._id}
-              className="border-t"
+              className="border-t dark:border-slate-700"
             >
-              <td className="p-4">
+              <td className="p-4 text-black dark:text-white">
                 {lead.name}
               </td>
 
-              <td className="p-4">
+              <td className="p-4 text-black dark:text-white">
                 {lead.email}
               </td>
 
-              <td className="p-4">
+              <td className="p-4 text-black dark:text-white">
                 {lead.company}
               </td>
 
-              <td className="p-4">
+              <td className="p-4 text-black dark:text-white">
                 <select
                   value={lead.status}
                   onChange={(e) =>
@@ -84,7 +84,7 @@ const LeadsTable = ({
                       e.target.value
                     )
                   }
-                  className="border rounded-lg px-3 py-2"
+                  className="border dark:border-slate-600 bg-white dark:bg-slate-700 text-black dark:text-white rounded-lg px-3 py-2"
                 >
                   <option value="new">
                     New
@@ -113,7 +113,7 @@ const LeadsTable = ({
                   onClick={() =>
                     onDelete(lead._id)
                   }
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition"
                 >
                   Delete
                 </button>
