@@ -1,209 +1,186 @@
 # GigFlow Smart Leads Dashboard
 
-A modern full-stack CRM dashboard built with the MERN stack.  
-The application helps businesses manage leads, track lead status, and visualize sales analytics through an interactive dashboard.
+A full-stack Smart Leads Management Dashboard built using the MERN stack.  
+This application helps users manage leads, track sales progress, monitor analytics, and securely handle authentication through a modern responsive dashboard UI.
 
 ---
 
-# 🚀 Features
+# Live Demo
 
-## Authentication
-- Secure login system
-- JWT authentication
-- Protected routes
-- Cookie-based authentication
+## Frontend
+https://gigflow-smart-leads-dashboard-six.vercel.app
 
----
-
-## Lead Management
-- Create new leads
-- Update lead status
-- Delete leads
-- Search leads
-- Filter leads by status
+## Backend
+https://gigflow-smart-leads-dashboard-8i8c.onrender.com
 
 ---
 
-## Dashboard Analytics
-- Lead statistics overview
-- Interactive pie chart analytics
-- Real-time dashboard updates
+# Features
+
+- User Authentication
+- Protected Routes
+- JWT Cookie Authentication
+- Lead Management CRUD
+- Update Lead Status
+- Delete Leads
+- Search Leads
+- Filter Leads by Status
+- Dashboard Analytics
+- Pie Chart Visualization
+- Dark Mode Support
+- Responsive Dashboard UI
+- Toast Notifications
+- Production Deployment
 
 ---
 
-## UI/UX Features
-- Responsive dashboard layout
-- Mobile sidebar navigation
-- Dark mode support
-- Toast notifications
-- Modern SaaS-style interface
-
----
-
-# 🛠 Tech Stack
+# Tech Stack
 
 ## Frontend
 - React
 - TypeScript
-- Vite
 - Tailwind CSS
+- Vite
 - React Query
+- Axios
+- Zustand
 - Recharts
-- Sonner
+- Shadcn UI
 - Lucide React
-
----
 
 ## Backend
 - Node.js
 - Express.js
+- TypeScript
 - MongoDB
 - Mongoose
 - JWT Authentication
+- Cookie Parser
+- BcryptJS
 
 ---
 
-# 📂 Project Structure
+# Folder Structure
 
 ```bash
 gigflow-smart-leads-dashboard/
 │
-├── client/        # Frontend
+├── client/
 │
-├── server/        # Backend
-│
-└── README.md
+└── server/
 ```
 
 ---
 
-# ⚙️ Installation
+# Environment Variables
 
-## 1️⃣ Clone Repository
+## Client `.env`
 
-```bash
-git clone <your-repo-url>
+```env
+VITE_API_URL=your_backend_url/api
 ```
 
 ---
 
-## 2️⃣ Install Frontend Dependencies
-
-```bash
-cd client
-npm install
-```
-
----
-
-## 3️⃣ Install Backend Dependencies
-
-```bash
-cd ../server
-npm install
-```
-
----
-
-# 🔐 Environment Variables
-
-Create a `.env` file inside `server/`
+## Server `.env`
 
 ```env
 PORT=5000
-
-MONGO_URI=your_mongodb_connection_string
-
-JWT_SECRET=your_jwt_secret
-
-CLIENT_URL=http://localhost:5173
-
-NODE_ENV=development
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_secret_key
+CLIENT_URL=your_frontend_url
+NODE_ENV=production
 ```
 
 ---
 
-# ▶️ Run Frontend
+# Installation & Setup
 
-Inside `client/`
+## Clone Repository
 
 ```bash
+git clone https://github.com/DMANOJKUMAR16/gigflow-smart-leads-dashboard.git
+```
+
+---
+
+# Frontend Setup
+
+```bash
+cd client
+
+npm install
+
 npm run dev
 ```
 
 ---
 
-# ▶️ Run Backend
-
-Inside `server/`
+# Backend Setup
 
 ```bash
+cd server
+
+npm install
+
 npm run dev
 ```
 
 ---
 
-# 🌐 Application URLs
+# Production Deployment
 
-Frontend:
+## Frontend Deployment
+- Vercel
 
-```txt
-http://localhost:5173
-```
+## Backend Deployment
+- Render
 
-Backend:
-
-```txt
-http://localhost:5000
-```
+## Database
+- MongoDB Atlas
 
 ---
 
-# 📊 Dashboard Features
+# Authentication
 
-- Lead analytics chart
-- Lead status tracking
-- Real-time updates
-- Responsive cards
-- Search & filtering
-
----
-
-# 🌙 Dark Mode
-
-The application supports:
-- Light mode
-- Dark mode
-- Responsive theme switching
+This project uses:
+- JWT Authentication
+- HTTP Only Cookies
+- Secure Cross-Site Cookies
+- Protected Routes
 
 ---
 
-# 📱 Responsive Design
+# Dashboard Features
 
-The application is fully responsive and optimized for:
-- Desktop
-- Tablet
-- Mobile devices
-
----
-
-# 📌 Future Improvements
-
-- Loading skeletons
-- CSV export/import
-- Activity logs
-- Role-based access
-- Advanced analytics
-- Deployment optimizations
+- Lead Analytics
+- Lead Status Distribution
+- Search & Filter System
+- Dynamic Dashboard Stats
+- Real-Time UI Updates
 
 ---
 
-# 👨‍💻 Author
+# Screenshots
 
-Developed by Manoj Kumar
+Add project screenshots here.
 
 ---
 
-# 📄 License
+# Future Improvements
 
-This project is created for educational and internship assignment purposes.
+- Role-Based Access
+- Email Notifications
+- Lead Notes System
+- Export Leads
+- Activity Tracking
+- Team Collaboration
+
+---
+
+# Author
+
+## Manoj Kumar
+
+GitHub:
+https://github.com/DMANOJKUMAR16
