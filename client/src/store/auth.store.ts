@@ -1,27 +1,25 @@
 import { create } from "zustand";
 
-type User = {
-  id: string;
-  name: string;
+interface User {
   email: string;
-  role: string;
-};
+}
 
-type AuthState = {
+interface AuthState {
   user: User | null;
-  setUser: (user: User | null) => void;
-  logout: () => void;
-};
 
-export const useAuthStore = create<AuthState>()((set) => ({
-  user: {
-    id: "1",
-    name: "Manoj",
-    email: "manoj@example.com",
-    role: "admin",
-  },
+  setUser: (
+    user: User | null
+  ) => void;
+}
 
-  setUser: (user) => set({ user }),
+export const useAuthStore =
+  create<AuthState>((set) => ({
+    user: null,
 
-  logout: () => set({ user: null }),
-}));
+    setUser: (
+      user: User | null
+    ) =>
+      set({
+        user,
+      }),
+  }));
