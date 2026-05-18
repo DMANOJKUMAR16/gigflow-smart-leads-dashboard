@@ -16,13 +16,17 @@ import LeadsPage from "./pages/dashboard/LeadsPage";
 
 import AppLayout from "./components/layout/AppLayout";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import { Toaster } from "sonner";
+import ThemeProvider from "./components/ThemeProvider";
 
 const queryClient = new QueryClient();
 ReactDOM.createRoot(
   document.getElementById("root")!
 ).render(
   <React.StrictMode>
+    <ThemeProvider>
     <QueryClientProvider client={queryClient}>
+    <Toaster richColors position="top-right" />
     <BrowserRouter>
       <Routes>
         <Route
@@ -55,5 +59,6 @@ ReactDOM.createRoot(
       </Routes>
     </BrowserRouter>
     </QueryClientProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );

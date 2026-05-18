@@ -48,20 +48,20 @@ const StatsCards = ({ stats }: Props) => {
         return (
           <Card
             key={card.title}
-            className="shadow-sm border-0"
+            className="shadow-sm border-0 bg-white dark:bg-slate-800"
           >
             <CardContent className="p-6 flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-500">
+                <p className="text-sm text-slate-500 dark:text-slate-300">
                   {card.title}
                 </p>
 
-                <h2 className="text-3xl font-bold mt-2">
+                <h2 className="text-3xl font-bold mt-2 text-black dark:text-white">
                   {card.value}
                 </h2>
               </div>
 
-              <div className="bg-slate-100 p-3 rounded-xl">
+              <div className="bg-slate-100 dark:bg-slate-700 p-3 rounded-xl">
                 <Icon className="w-6 h-6" />
               </div>
             </CardContent>

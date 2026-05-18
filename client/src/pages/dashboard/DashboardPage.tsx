@@ -4,6 +4,8 @@ import StatsCards from "../../components/dashboard/StatsCards";
 
 import { getDashboardStats } from "../../services/dashboard.service";
 
+import LeadsChart from "../../components/dashboard/LeadsChart";
+
 const DashboardPage = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["dashboard-stats"],
@@ -48,6 +50,7 @@ const DashboardPage = () => {
           }
         }
       />
+     <LeadsChart stats={data} />
     </div>
   );
 };

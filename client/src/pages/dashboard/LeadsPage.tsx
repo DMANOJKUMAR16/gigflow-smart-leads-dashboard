@@ -16,6 +16,7 @@ import {
   getLeads,
   updateLeadStatus,
 } from "../../services/leads.service";
+import { toast } from "sonner";
 
 const LeadsPage = () => {
   const queryClient = useQueryClient();
@@ -36,14 +37,28 @@ const LeadsPage = () => {
   });
 
   const mutation = useMutation({
-    mutationFn: createLead,
+  mutationFn: createLead,
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["leads"],
-      });
-    },
-  });
+  onSuccess: () => {
+    queryClient.invalidateQueries({
+      queryKey: ["leads"],
+    });
+
+    queryClient.invalidateQueries({
+      queryKey: ["dashboard-stats"],
+    });
+
+    toast.success(
+      "Lead created successfully"
+    );
+  },
+
+  onError: () => {
+    toast.error(
+      "Failed to create lead"
+    );
+  },
+});
 
   const statusMutation = useMutation({
   mutationFn: ({
@@ -66,8 +81,18 @@ const LeadsPage = () => {
     queryClient.invalidateQueries({
       queryKey: ["dashboard-stats"],
     });
+
+    toast.success(
+      "Lead status updated"
+    );
   },
-  });
+
+  onError: () => {
+    toast.error(
+      "Failed to update lead"
+    );
+  },
+});
 
   const deleteMutation = useMutation({
   mutationFn: deleteLead,
@@ -80,6 +105,16 @@ const LeadsPage = () => {
     queryClient.invalidateQueries({
       queryKey: ["dashboard-stats"],
     });
+
+    toast.success(
+      "Lead deleted successfully"
+    );
+  },
+
+  onError: () => {
+    toast.error(
+      "Failed to delete lead"
+    );
   },
 });
 
